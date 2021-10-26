@@ -108,11 +108,78 @@ namespace Miniville
 
 		private void HumanAction()
 		{
-
+			Console.WriteLine("Voulez vous achetez une carte?\n o - oui\n n - non");
+			string rep1 = Console.ReadLine().ToLower();
+			List<Card> cardsAvailable = new List<Card> { };
+			if (rep1 == "o")
+			{
+				foreach (Card c in Deck.Cards)
+                {
+					if(c.CardsLeft > 0 && c.CardCost <= Human.Money)
+                    {
+						cardsAvailable.Add(c);
+                    }
+                }
+				int i = 1;
+				Console.WriteLine("Choisissez une carte");
+				foreach (Card c in cardsAvailable)
+                {
+					Console.WriteLine(" {0} - {1}", i, c.Name);
+					i++;
+                }
+				int rep2 = int.Parse(Console.ReadLine());
+				Human.Cards.Add(cardsAvailable[rep2]);
+				Human.Money -= cardsAvailable[rep2].CardCost;
+				foreach(Card c in Deck.Cards)
+                {
+					if(cardsAvailable[rep2].Name == c.Name)
+                    {
+						c.CardsLeft--;
+                    }
+                }
+			}
 		}
 		private void AIAction()
 		{
-
+			List<Card> cardsAvailable = new List<Card> { };
+			foreach (Card c in Deck.Cards)
+			{
+				if (c.CardsLeft > 0 && c.CardCost <= Human.Money)
+				{
+					cardsAvailable.Add(c);
+				}
+			}
+			Card cardChoice = cardsAvailable[0];
+			foreach(Card c in cardsAvailable)
+            {
+				if(cardChoice.ValReceive < c.ValReceive)
+                {
+					cardChoice = c;
+                }
+				else if(cardChoice.ValReceive == c.ValReceive)
+                {
+					if(cardChoice.ValTaken < c.ValTaken)
+                    {
+						cardChoice = c;
+                    }
+					else if(cardChoice.ValTaken == c.ValTaken)
+                    {
+						if(cardChoice.CardCost > cardChoice.CardCost)
+                        {
+							cardChoice = c;
+                        }
+                    }
+                }
+            }
+			AI.Cards.Add(cardChoice);
+			AI.Money -= cardChoice.CardCost;
+			foreach (Card c in Deck.Cards)
+			{
+				if (cardChoice.Name == c.Name)
+				{
+					c.CardsLeft--;
+				}
+			}
 		}
 
 		private void EndGame(bool HumanWins, bool AIWins)
