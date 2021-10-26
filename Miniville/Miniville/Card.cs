@@ -15,7 +15,8 @@ namespace Miniville {
 
 		public Card(Utils.CardName cardName, int cardsLeft)
 		{
-			CardInfos cardInf = Utils.CardsStats[cardName];
+			Card cardInf = Utils.CardsStats[cardName];
+
 			this.Name = cardInf.Name;
 			this.CardColor = cardInf.CardColor;
 			this.CardCost = cardInf.CardCost;
@@ -26,7 +27,17 @@ namespace Miniville {
 			this.ValTaken = cardInf.ValTaken;
 
 			this.CardsLeft = cardsLeft;
+		}
+		public Card (Utils.CardName name, Utils.CardColor cardColor, List<int> nbsActivation, int cardCost, int valReceive, int valTaken)
+		{
+			this.Name = name;
+			this.CardColor = cardColor;
+			this.CardCost = cardCost;
 
+			this.NbsActivation = nbsActivation;
+
+			this.ValReceive = valReceive;
+			this.ValTaken = valTaken;
 
 		}
 

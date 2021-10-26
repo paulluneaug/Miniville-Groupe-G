@@ -120,6 +120,7 @@ namespace Miniville
 						cardsAvailable.Add(c);
                     }
                 }
+
 				int i = 1;
 				Console.WriteLine("Choisissez une carte");
 				foreach (Card c in cardsAvailable)
@@ -127,16 +128,11 @@ namespace Miniville
 					Console.WriteLine(" {0} - {1}", i, c.Name);
 					i++;
                 }
-				int rep2 = int.Parse(Console.ReadLine());
-				Human.Cards.Add(cardsAvailable[rep2]);
-				Human.Money -= cardsAvailable[rep2].CardCost;
-				foreach(Card c in Deck.Cards)
-                {
-					if(cardsAvailable[rep2].Name == c.Name)
-                    {
-						c.CardsLeft--;
-                    }
-                }
+
+				int rep2 = int.Parse(Console.ReadLine())-1;
+
+				DrawCard(AI, cardsAvailable[rep2], Deck);
+				
 			}
 		}
 		private void AIAction()
@@ -144,38 +140,47 @@ namespace Miniville
 			List<Card> cardsAvailable = new List<Card> { };
 			foreach (Card c in Deck.Cards)
 			{
-				if (c.CardsLeft > 0 && c.CardCost <= Human.Money)
+				if (c.CardsLeft > 0 && c.CardCost <= AI.Money)
 				{
 					cardsAvailable.Add(c);
 				}
 			}
-			Card cardChoice = cardsAvailable[0];
-			foreach(Card c in cardsAvailable)
+			if (cardsAvailable.Count > 0)
             {
-				if(cardChoice.ValReceive < c.ValReceive)
-                {
-					cardChoice = c;
-                }
-				else if(cardChoice.ValReceive == c.ValReceive)
-                {
-					if(cardChoice.ValTaken < c.ValTaken)
-                    {
+				Card cardChoice = cardsAvailable[0];
+				foreach (Card c in cardsAvailable)
+				{
+					if (cardChoice.ValReceive < c.ValReceive)
+					{
 						cardChoice = c;
-                    }
-					else if(cardChoice.ValTaken == c.ValTaken)
-                    {
-						if(cardChoice.CardCost > cardChoice.CardCost)
-                        {
+					}
+					else if (cardChoice.ValReceive == c.ValReceive)
+					{
+						if (cardChoice.ValTaken < c.ValTaken)
+						{
 							cardChoice = c;
-                        }
-                    }
-                }
-            }
-			AI.Cards.Add(cardChoice);
-			AI.Money -= cardChoice.CardCost;
-			foreach (Card c in Deck.Cards)
+						}
+						else if (cardChoice.ValTaken == c.ValTaken)
+						{
+							if (cardChoice.CardCost > cardChoice.CardCost)
+							{
+								cardChoice = c;
+							}
+						}
+					}
+				}
+
+				DrawCard(AI, cardChoice, Deck);
+			}
+		}
+
+		private void DrawCard(Player p, Card chosenCard, Pile cardDeck)
+        {
+			p.Cards.Add(new Card(chosenCard.Name, 1));
+			p.Money -= chosenCard.CardCost;
+			foreach (Card c in cardDeck.Cards)
 			{
-				if (cardChoice.Name == c.Name)
+				if (chosenCard.Name == c.Name)
 				{
 					c.CardsLeft--;
 				}
@@ -184,7 +189,18 @@ namespace Miniville
 
 		private void EndGame(bool HumanWins, bool AIWins)
         {
-
+			if (HumanWins && AIWins)
+            {
+				Console.WriteLine("Égalité");
+            }
+			else if (AIWins)
+            {
+				Console.WriteLine("L'ordinateur a gagné");
+            }
+            else
+			{
+				Console.WriteLine("Vous avez gagné");
+			}
         }
 
 		private void ConsoleDisplay()
