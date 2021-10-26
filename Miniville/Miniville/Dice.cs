@@ -20,7 +20,6 @@ namespace Miniville
 		public int DiceThrow()
 		{
 			return random.Next(1,NbFaces+1);
-
 		}
 	}
 }

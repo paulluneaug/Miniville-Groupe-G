@@ -9,29 +9,30 @@ namespace Miniville {
 		public Utils.CardColor CardColor { get; private set; }
 		public List<int> NbsActivation { get; private set; }
 		public int CardCost { get; private set; }
-		public int ValRecieve { get; private set; }
+		public int ValReceive { get; private set; }
 		public int ValTaken { get; private set; }
 		public int CardsLeft { get; set; }
 
-		public Card(Utils.CardName name, Utils.CardColor cardColor, List<int> nbsActivation, int cardCost, int valRecieve, int valTaken, int cardsLeft)
+		public Card(Utils.CardName cardName, int cardsLeft)
 		{
-			this.Name = name;
-			this.CardColor = cardColor;
-			this.CardCost = cardCost;
+			CardInfos cardInf = Utils.CardsStats[cardName];
+			this.Name = cardInf.Name;
+			this.CardColor = cardInf.CardColor;
+			this.CardCost = cardInf.CardCost;
 
-			this.NbsActivation = nbsActivation;
+			this.NbsActivation = cardInf.NbsActivation;
 
-			this.ValRecieve = valRecieve;
-			this.ValTaken = valTaken;
+			this.ValReceive = cardInf.ValReceive;
+			this.ValTaken = cardInf.ValTaken;
 
 			this.CardsLeft = cardsLeft;
 
 
 		}
 
-		public void Effect(Player reciever, Player giver)
+		public void Effect(Player receiver, Player giver)
 		{
-			reciever.Money += ValRecieve;
+			receiver.Money += ValReceive;
 			giver.Money += ValTaken;
 		}
 
