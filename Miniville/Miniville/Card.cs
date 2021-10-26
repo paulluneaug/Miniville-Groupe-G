@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace Miniville {
 	public class Card
 	{
+		
 		public Utils.CardName Name { get; private set; }
 		public Utils.CardColor CardColor { get; private set; }
 		public List<int> NbsActivation { get; private set; }
@@ -30,8 +31,22 @@ namespace Miniville {
 
 		public void Effect(Player reciever, Player giver)
 		{
-			reciever.money += ValRecieve;
-			giver.money += ValTaken;
+			reciever.Money += ValRecieve;
+			giver.Money += ValTaken;
 		}
-	}
+
+        public override bool Equals(object obj)
+		{
+			//Check for null and compare run-time types.
+			if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+			{
+				return false;
+			}
+			else
+			{
+				Card c = (Card) obj;
+				return (this.Name == c.Name);
+			}
+		}
+    }
 }

@@ -15,7 +15,6 @@ namespace Miniville
 			Restraurant,
 			Stadium
 		}
-
 		public enum CardColor
 		{
 			Red,

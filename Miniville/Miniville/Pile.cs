@@ -5,21 +5,27 @@ using System.Collections.Generic;
 
 namespace Miniville
 {
-	public class Piles
+	public class Pile
 	{
 
-		public List<Card> Pile { get; private set; }
-		public Piles()
+		public List<Card> Cards { get; private set; }
+		public Pile()
 		{
-			Pile.Add(new Card(Utils.CardName.WheatField, // Name / Type
-							  Utils.CardColor.Blue, // Color
-							  new List<int>() { 1 }, //Values Activation
-							  1, //Cost
-							  1, //Value Recieved
-							  0, //Value Taken
-							  6)); // Cards Left
+			this.Cards = new List<Card>();
 
-			Pile.Add(new Card(Utils.CardName.Farm, // Name / Type
+			BuildDeck(Cards);
+		}
+		private void BuildDeck(List<Card> p)
+		{
+			p.Add(new Card(Utils.CardName.WheatField, // Name / Type
+								 Utils.CardColor.Blue, // Color
+								 new List<int>() { 1 }, //Values Activation
+								 1, //Cost
+								 1, //Value Recieved
+								 0, //Value Taken
+								 6)); // Cards Left
+
+			p.Add(new Card(Utils.CardName.Farm, // Name / Type
 							  Utils.CardColor.Blue, // Color
 							  new List<int>() { 1 }, //Values Activation
 							  2, //Cost
@@ -27,7 +33,7 @@ namespace Miniville
 							  0, //Value Taken
 							  6)); // Cards Left
 
-			Pile.Add(new Card(Utils.CardName.Bakery, // Name / Type
+			p.Add(new Card(Utils.CardName.Bakery, // Name / Type
 							  Utils.CardColor.Green, // Color
 							  new List<int>() { 1, 2 }, //Values Activation
 							  1, //Cost
@@ -35,7 +41,7 @@ namespace Miniville
 							  0, //Value Taken
 							  6)); // Cards Left
 
-			Pile.Add(new Card(Utils.CardName.CofeeShop, // Name / Type
+			p.Add(new Card(Utils.CardName.CofeeShop, // Name / Type
 							  Utils.CardColor.Red, // Color
 							  new List<int>() { 3 }, //Values Activation
 							  2, //Cost
@@ -43,7 +49,7 @@ namespace Miniville
 							  1, //Value Taken
 							  6)); // Cards Left
 
-			Pile.Add(new Card(Utils.CardName.SuperMarket, // Name / Type
+			p.Add(new Card(Utils.CardName.SuperMarket, // Name / Type
 							  Utils.CardColor.Green, // Color
 							  new List<int>() { 4 }, //Values Activation
 							  2, //Cost
@@ -51,7 +57,7 @@ namespace Miniville
 							  0, //Value Taken
 							  6)); // Cards Left
 
-			Pile.Add(new Card(Utils.CardName.Forest, // Name / Type
+			p.Add(new Card(Utils.CardName.Forest, // Name / Type
 							  Utils.CardColor.Blue, // Color
 							  new List<int>() { 5 }, //Values Activation
 							  2, //Cost
@@ -59,7 +65,7 @@ namespace Miniville
 							  0, //Value Taken
 							  6)); // Cards Left
 
-			Pile.Add(new Card(Utils.CardName.Restraurant, // Name / Type
+			p.Add(new Card(Utils.CardName.Restraurant, // Name / Type
 							  Utils.CardColor.Red, // Color
 							  new List<int>() { 5 }, //Values Activation
 							  4, //Cost
@@ -67,14 +73,13 @@ namespace Miniville
 							  2, //Value Taken
 							  6)); // Cards Left
 
-			Pile.Add(new Card(Utils.CardName.Stadium, // Name / Type
+			p.Add(new Card(Utils.CardName.Stadium, // Name / Type
 							  Utils.CardColor.Blue, // Color
 							  new List<int>() { 6 }, //Values Activation
 							  6, //Cost
 							  4, //Value Recieved
 							  0, //Value Taken
 							  6)); // Cards Left
-
 		}
 	}
 }

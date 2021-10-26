@@ -5,11 +5,11 @@ namespace Miniville
 {
 	public class Player
 	{
-		public int money;
-		public List<Card> cartes = new List<Card> { };
+		public int Money;
+		public List<Card> Cards = new List<Card>() { };
 		public Player()
 		{
-			money = 3;
+			Money = 3;
 		}
 	}
 }
