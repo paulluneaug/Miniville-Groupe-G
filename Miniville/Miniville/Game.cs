@@ -60,13 +60,13 @@ namespace Miniville
 			while (!(HumanWins || AIWins))
             {
 				//Human turn
-				int diceThrow = Dice6.DiceThrow();
+				int diceThrow = Dice6.DiceThrow() + Dice6.DiceThrow();
 				ActivateCards(Human, AI, diceThrow, true);
 				ActivateCards(AI, Human, diceThrow, false);
 				HumanAction();
 
 				//AI turn
-				diceThrow = Dice6.DiceThrow();
+				diceThrow = Dice6.DiceThrow() + Dice6.DiceThrow();
 				ActivateCards(AI, Human, diceThrow, true);
 				ActivateCards(Human, AI, diceThrow, false);
 				AIAction();
@@ -108,32 +108,48 @@ namespace Miniville
 
 		private void HumanAction()
 		{
-			Console.WriteLine("Voulez vous achetez une carte?\n o - oui\n n - non");
-			string rep1 = Console.ReadLine().ToLower();
-			List<Card> cardsAvailable = new List<Card> { };
-			if (rep1 == "o")
+			Console.WriteLine("Voici vos cartes : ");
+			foreach (Card c in Human.Cards)
 			{
-				foreach (Card c in Deck.Cards)
-                {
-					if(c.CardsLeft > 0 && c.CardCost <= Human.Money)
-                    {
-						cardsAvailable.Add(c);
-                    }
-                }
-
-				int i = 1;
-				Console.WriteLine("Choisissez une carte");
-				foreach (Card c in cardsAvailable)
-                {
-					Console.WriteLine(" {0} - {1}", i, c.Name);
-					i++;
-                }
-
-				int rep2 = int.Parse(Console.ReadLine())-1;
-
-				DrawCard(AI, cardsAvailable[rep2], Deck);
-				
+				Console.WriteLine(c);
 			}
+			Console.WriteLine($"Vous avez {Human.Money} pièces");
+
+			List<Card> cardsAvailable = new List<Card> { };
+			foreach (Card c in Deck.Cards)
+			{
+				if (c.CardsLeft > 0 && c.CardCost <= Human.Money)
+				{
+					cardsAvailable.Add(c);
+				}
+			}
+
+			if (cardsAvailable.Count != 0)
+            {
+				Console.WriteLine("Voulez vous achetez une carte?\n o - oui\n n - non");
+				string rep1 = Console.ReadLine().ToLower();
+				if (rep1 == "o")
+				{
+
+					int i = 1;
+					Console.WriteLine("Choisissez une carte");
+					foreach (Card c in cardsAvailable)
+					{
+						Console.WriteLine($"{i} - {c}");
+						i++;
+					}
+
+					int rep2 = int.Parse(Console.ReadLine()) - 1;
+
+					DrawCard(Human, cardsAvailable[rep2], Deck);
+
+				}
+			}
+            else
+            {
+				Console.WriteLine("Vous n'avez pas assez d'argent pour acheter une nouvelle carte");
+            }
+			
 		}
 		private void AIAction()
 		{
@@ -204,9 +220,10 @@ namespace Miniville
         }
 
 		private void ConsoleDisplay()
-		{
+        {
 
-		}
+			
+        }
 
 		private bool PlayerWins(Player p)
 		{

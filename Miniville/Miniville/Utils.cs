@@ -7,35 +7,39 @@ namespace Miniville
 	{
 		public enum CardName
 		{
-			WheatField,
 			Farm,
 			Bakery,
 			CofeeShop,
 			SuperMarket,
 			Forest,
+			Stadium,
+			CheeseFactory,
+			FurnitureFactory,
 			Restraurant,
-			Stadium
+			Grove,
+			FruitMarket,
+			WheatField
 		}
 		public enum CardColor
 		{
 			Red,
-			Green,
+			Green, 
 			Blue
 		}
-		public readonly static Dictionary<Utils.CardName, Card> CardsStats = new Dictionary<Utils.CardName, Card>()
+
+		public static readonly Dictionary<Utils.CardName, Utils.CardName> CardsNeeds = new Dictionary<Utils.CardName, Utils.CardName>()
 		{
-			{Utils.CardName.WheatField,
-				new Card(Utils.CardName.WheatField, // Name / Type								  
-							  Utils.CardColor.Blue, // Color
-							  new List<int>() { 1 }, //Values Activation
-							  1, //Cost
-							  1, //Value Received
-							  0) //Value Taken
-			},
+			{Utils.CardName.CheeseFactory, Utils.CardName.Farm},
+			{Utils.CardName.FurnitureFactory, Utils.CardName.Forest},
+			{Utils.CardName.FruitMarket, Utils.CardName.Grove}
+		};
+
+		public static readonly Dictionary<Utils.CardName, Card> CardsStats = new Dictionary<Utils.CardName, Card>()
+		{
 			{Utils.CardName.Farm,
 				new Card(Utils.CardName.Farm, // Name / Type
 							  Utils.CardColor.Blue, // Color
-							  new List<int>() { 1 }, //Values Activation
+							  new List<int>() { 2 }, //Values Activation
 							  2, //Cost
 							  1, //Value Received
 							  0) //Value Taken
@@ -43,8 +47,8 @@ namespace Miniville
 			{Utils.CardName.Bakery,
 				new Card(Utils.CardName.Bakery, // Name / Type
 							  Utils.CardColor.Green, // Color
-							  new List<int>() { 1, 2 }, //Values Activation
-							  1, //Cost
+							  new List<int>() { 2, 3 }, //Values Activation
+							  3, //Cost
 							  2, //Value Received
 							  0) //Value Taken
 			},
@@ -60,7 +64,7 @@ namespace Miniville
 				new Card(Utils.CardName.SuperMarket, // Name / Type
 							  Utils.CardColor.Green, // Color
 							  new List<int>() { 4 }, //Values Activation
-							  2, //Cost
+							  3, //Cost
 							  3, //Value Received
 							  0) //Value Taken
 			},
@@ -72,20 +76,60 @@ namespace Miniville
 							  1, //Value Received
 							  0) //Value Taken
 			},
-			{Utils.CardName.Restraurant,
-				new Card(Utils.CardName.Restraurant, // Name / Type
-							  Utils.CardColor.Red, // Color
-							  new List<int>() { 5 }, //Values Activation
-							  4, //Cost
-							  2, //Value Received
-							  2) //Value Taken
-			},
 			{Utils.CardName.Stadium,
 				new Card(Utils.CardName.Stadium, // Name / Type
 							  Utils.CardColor.Blue, // Color
 							  new List<int>() { 6 }, //Values Activation
 							  6, //Cost
+							  3, //Value Received
+							  3) //Value Taken
+			},
+			{Utils.CardName.CheeseFactory,
+				new Card(Utils.CardName.CheeseFactory, // Name / Type
+							  Utils.CardColor.Green, // Color
+							  new List<int>() { 7 }, //Values Activation
+							  5, //Cost
+							  3, //Value Received
+							  0) //Value Taken
+			},
+			{Utils.CardName.FurnitureFactory,
+				new Card(Utils.CardName.FurnitureFactory, // Name / Type
+							  Utils.CardColor.Green, // Color
+							  new List<int>() { 8 }, //Values Activation
+							  6, //Cost
 							  4, //Value Received
+							  0) //Value Taken
+			},
+			{Utils.CardName.Restraurant,
+				new Card(Utils.CardName.Restraurant, // Name / Type
+							  Utils.CardColor.Red, // Color
+							  new List<int>() { 9, 10 }, //Values Activation
+							  4, //Cost
+							  2, //Value Received
+							  2) //Value Taken
+			},
+			{Utils.CardName.Grove,
+				new Card(Utils.CardName.Grove, // Name / Type
+							  Utils.CardColor.Blue, // Color
+							  new List<int>() { 10 }, //Values Activation
+							  3, //Cost
+							  3, //Value Received
+							  0) //Value Taken
+			},
+			{Utils.CardName.FruitMarket,
+				new Card(Utils.CardName.FruitMarket, // Name / Type								  
+							  Utils.CardColor.Green, // Color
+							  new List<int>() { 11, 12 }, //Values Activation
+							  6, //Cost
+							  5, //Value Received
+							  0) //Value Taken
+			},
+			{Utils.CardName.WheatField,
+				new Card(Utils.CardName.WheatField, // Name / Type								  
+							  Utils.CardColor.Blue, // Color
+							  new List<int>() { 1 }, //Values Activation
+							  1, //Cost
+							  1, //Value Received
 							  0) //Value Taken
 			}
 		};

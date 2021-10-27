@@ -43,8 +43,23 @@ namespace Miniville {
 
 		public void Effect(Player receiver, Player giver)
 		{
-			receiver.Money += ValReceive;
-			giver.Money += ValTaken;
+			if (Utils.CardsNeeds.ContainsKey(this.Name))
+            {
+				foreach(Card c in receiver.Cards)
+                {
+					if (Utils.CardsNeeds[this.Name] == c.Name)
+					{
+						receiver.Money += ValReceive;
+						giver.Money += ValTaken;
+						break;
+					}
+                }
+            }
+            else
+			{
+				receiver.Money += ValReceive;
+				giver.Money += ValTaken;
+			}
 		}
 
         public override bool Equals(object obj)
@@ -59,6 +74,18 @@ namespace Miniville {
 				Card c = (Card) obj;
 				return (this.Name == c.Name);
 			}
+		}
+
+        public override string ToString()
+		{
+			string bank = "la banque", adversary = "votre adversaire";
+
+			string activations = $"{this.NbsActivation[0]}";
+			for (int act = 1; act < this.NbsActivation.Count; act++)
+			{
+				activations += $"ou { this.NbsActivation[act] } ";
+			}
+			return $"{this.Name} : {this.CardColor}  Vous recevez {this.ValReceive} pièces de {(this.ValReceive == 0 ? adversary : bank)} \n Cette carte s'active quand les dés tombent sur {activations} \n";
 		}
     }
 }
