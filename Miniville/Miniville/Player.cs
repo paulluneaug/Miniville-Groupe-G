@@ -5,7 +5,7 @@ namespace Miniville
 {
 	public class Player
 	{
-		public int Money;
+		public int Money; 
 		public string Name { get; private set; }
 		public List<Card> Cards = new List<Card>() { };
 		public Player(string name)

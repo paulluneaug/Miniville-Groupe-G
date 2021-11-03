@@ -5,7 +5,7 @@ namespace Miniville
 {
 	public class Utils
 	{
-		public enum CardName
+		public enum CardName // All types of card
 		{
 			Farm,
 			Bakery,
@@ -20,21 +20,21 @@ namespace Miniville
 			FruitMarket,
 			WheatField
 		}
-		public enum CardColor
+		public enum CardColor // All colors
 		{
 			Red,
 			Green, 
 			Blue
 		}
 
-		public static readonly Dictionary<Utils.CardName, Utils.CardName> CardsNeeds = new Dictionary<Utils.CardName, Utils.CardName>()
+		public static readonly Dictionary<Utils.CardName, Utils.CardName> CardsNeeds = new Dictionary<Utils.CardName, Utils.CardName>() // Dictionnary that stores the cards needed to activate cartain cards
 		{
 			{Utils.CardName.CheeseFactory, Utils.CardName.Farm},
 			{Utils.CardName.FurnitureFactory, Utils.CardName.Forest},
 			{Utils.CardName.FruitMarket, Utils.CardName.Grove}
 		};
 
-		public static readonly Dictionary<Utils.CardName, Card> CardsStats = new Dictionary<Utils.CardName, Card>()
+		public static readonly Dictionary<Utils.CardName, Card> CardsStats = new Dictionary<Utils.CardName, Card>() // Dictionnary that stores a copy of all cards to be able to get their statistics
 		{
 			{Utils.CardName.Farm,
 				new Card(Utils.CardName.Farm, // Name / Type
@@ -127,7 +127,7 @@ namespace Miniville
 			{Utils.CardName.WheatField,
 				new Card(Utils.CardName.WheatField, // Name / Type								  
 							  Utils.CardColor.Blue, // Color
-							  new List<int>() { 1 }, //Values Activation
+							  new List<int>() { 12 }, //Values Activation
 							  1, //Cost
 							  1, //Value Received
 							  0) //Value Taken

@@ -5,7 +5,7 @@ namespace Miniville
 	public class Dice
 	{
 		private Random random;
-		public int NbFaces { get; private set; }
+		public int NbFaces { get; private set; } // Number of faces of the dice
 		public Dice()
 		{
 			random = new Random();
