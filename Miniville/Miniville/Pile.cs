@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 
 
-namespace Miniville
+namespace MiniVille
 {
 	public class Pile
 	{
@@ -11,15 +11,13 @@ namespace Miniville
 		public Pile()
 		{
 			this.Cards = new List<Card>();
-
-			BuildDeck(Cards);
 		}
-		private void BuildDeck(List<Card> p)
+		public void BuildDeck()
 		{
 			foreach (Utils.CardName cName in Enum.GetValues(typeof(Utils.CardName)))
-            {
-				p.Add(new Card(cName, 6));
-            }
+			{
+				this.Cards.Add(new Card(cName, 6));
+			}
 		}
 	}
 }

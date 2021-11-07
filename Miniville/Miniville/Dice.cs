@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Miniville
+namespace MiniVille
 {
 	public class Dice
 	{

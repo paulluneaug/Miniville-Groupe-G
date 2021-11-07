@@ -1,24 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace Miniville
+namespace MiniVille
 {
 	public class Game
 	{
-		private Player Human;// { get; private set; }
-		private Player AI;// { get; private set; }
-
-		private Pile Deck;// { get; private set; }
-
-		private Dice Dice6 = new Dice(6);
-
-		private int nbTurns = 0;
-		private int MoneyToWin;
-		private bool ExpertMode;
-		private bool PlayInConsole = true;
-
-		private Random rnd = new Random();
 		public Game()
 		{
 			Console.WriteLine("Quel est votre nom ?");
@@ -61,20 +47,18 @@ namespace Miniville
 		{
 			bool HumanWins = PlayerWins(Human), AIWins = PlayerWins(AI);
 			while (!(HumanWins || AIWins))
-            {
+			{
 				//Human turn
-				int diceThrow = Dice6.DiceThrow() + Dice6.DiceThrow();
+				int diceThrow = ;
 				ActivateCards(Human, AI, diceThrow, true);
 				ActivateCards(AI, Human, diceThrow, false);
 				HumanAction();
 
 				//AI turn
-				diceThrow = Dice6.DiceThrow() + Dice6.DiceThrow();
+				diceThrow = ;
 				ActivateCards(AI, Human, diceThrow, true);
 				ActivateCards(Human, AI, diceThrow, false);
 				AIAction();
-
-				Console.WriteLine("\n ================================== \n");
 
 
 				HumanWins = PlayerWins(Human);
@@ -94,21 +78,16 @@ namespace Miniville
 					{
 						if (c.NbsActivation.Contains(diceThrow))
 						{
-							if (Player0 == Human) { Console.WriteLine($"Votre {c.Name} s'est activé"); }
-							else { Console.WriteLine($"La {c.Name} de votre adversaire s'est activé"); }
-							
 							c.Effect(Player0, otherPlayer);
 						}
 					}
 				}
-                else
+				else
 				{
 					if (c.CardColor == Utils.CardColor.Green || c.CardColor == Utils.CardColor.Blue)
 					{
 						if (c.NbsActivation.Contains(diceThrow))
 						{
-							if (Player0 == AI) { Console.WriteLine($"La {c.Name} de votre adversaire s'est activé"); }
-							else {Console.WriteLine($"Votre {c.Name} s'est activé"); }
 							c.Effect(Player0, otherPlayer);
 						}
 					}
@@ -135,7 +114,7 @@ namespace Miniville
 			}
 
 			if (cardsAvailable.Count != 0)
-            {
+			{
 				Console.WriteLine("Voulez vous achetez une carte?\n o - oui\n n - non");
 				string rep1 = Console.ReadLine().ToLower();
 				if (rep1 == "o")
@@ -155,19 +134,14 @@ namespace Miniville
 
 				}
 			}
-            else
-            {
+			else
+			{
 				Console.WriteLine("Vous n'avez pas assez d'argent pour acheter une nouvelle carte");
-            }
-			
+			}
+
 		}
 		private void AIAction()
 		{
-			Console.WriteLine("Voici les cartes de l'IA: ");
-			foreach (Card c in AI.Cards)
-			{
-				Console.WriteLine(c);
-			}
 			List<Card> cardsAvailable = new List<Card> { };
 			foreach (Card c in Deck.Cards)
 			{
@@ -176,36 +150,37 @@ namespace Miniville
 					cardsAvailable.Add(c);
 				}
 			}
-
-			if (cardsAvailable.Count > 0 || rnd.Next(0,10) < 3)
-            {
-				List<int> cardsWeights = new List<int>();
-
+			if (cardsAvailable.Count > 0)
+			{
+				Card cardChoice = cardsAvailable[0];
 				foreach (Card c in cardsAvailable)
 				{
-					int expertFact = 1;
-					if (ExpertMode && !AI.Cards.Contains(c)) { expertFact = 5; }
-
-					cardsWeights.Add((1 +  2 * c.ValReceive + 3 * c.ValTaken - c.CardCost) * expertFact);
+					if (cardChoice.ValReceive < c.ValReceive)
+					{
+						cardChoice = c;
+					}
+					else if (cardChoice.ValReceive == c.ValReceive)
+					{
+						if (cardChoice.ValTaken < c.ValTaken)
+						{
+							cardChoice = c;
+						}
+						else if (cardChoice.ValTaken == c.ValTaken)
+						{
+							if (cardChoice.CardCost > cardChoice.CardCost)
+							{
+								cardChoice = c;
+							}
+						}
+					}
 				}
 
-				int chosenWeight = rnd.Next(0, cardsWeights.Sum() + 1);
-				int weightSum = 0;
-				for (int i = 0; i < cardsWeights.Count; i++)
-                {
-					weightSum += cardsWeights[i];
-					if (weightSum >= chosenWeight)
-					{
-						DrawCard(AI, cardsAvailable[i], Deck);
-						Console.WriteLine($"L'IA a choisi d'achter un.une {cardsAvailable[i].Name}");
-						break;
-                    }
-                }
+				DrawCard(AI, cardChoice, Deck);
 			}
 		}
 
 		private void DrawCard(Player p, Card chosenCard, Pile cardDeck)
-        {
+		{
 			p.Cards.Add(new Card(chosenCard.Name, 1));
 			p.Money -= chosenCard.CardCost;
 			foreach (Card c in cardDeck.Cards)
@@ -217,53 +192,9 @@ namespace Miniville
 			}
 		}
 
-		private void EndGame(bool HumanWins, bool AIWins)
-        {
-			if (HumanWins && AIWins)
-            {
-				Console.WriteLine("Égalité");
-            }
-			else if (AIWins)
-            {
-				Console.WriteLine("L'ordinateur a gagné");
-            }
-            else
-			{
-				Console.WriteLine("Vous avez gagné");
-			}
-        }
 
-		private void ConsoleDisplay()
-        {
 
-			
-        }
-
-		private bool PlayerWins(Player p)
-		{
-			if (this.ExpertMode)
-			{
-				//If playing in expert mode, check if Player p has every card type in their deck
-				foreach (Utils.CardName name in Enum.GetValues(typeof(Utils.CardName)))
-				{
-					bool nameInDeck = false;
-					foreach (Card c in p.Cards)
-					{
-						nameInDeck = nameInDeck || c.Name == name;
-						if (nameInDeck)
-                        {
-							break;
-                        }
-					}
-					if (!nameInDeck)
-                    {
-						return false;
-                    }
-				}
-			}
-			// If that part is reached, it means that either the expert mode is not active, or that Player p has every type of card in their deck
-			return p.Money >= this.MoneyToWin;
-		}
+		
 	}
 }
 
