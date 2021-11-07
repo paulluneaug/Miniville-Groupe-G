@@ -1,6 +1,6 @@
 Pour lancer le jeu : 
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-Lancez le raccourci "Miniville" dans le dossier "Executable"
+Lancez l'executable "Miniville.exe" dans le dossier "~\Miniville\Miniville\bin\Debug"
 
 
 Règles :
