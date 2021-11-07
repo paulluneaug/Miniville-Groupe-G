@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 
-namespace Miniville {
-	public class Card 
+namespace MiniVille
+{
+	public class Card
 	{
-		
-		public Utils.CardName Name { get; private set; } // Name of the card
-		public Utils.CardColor CardColor { get; private set; } // Color of the card, representing the moment of the turn when it can be activated
-		public List<int> NbsActivation { get; private set; } // 
-		public int CardCost { get; private set; } // Value needed to buy this card
-		public int ValReceive { get; private set; } // Value recieved when the card is activated
-		public int ValTaken { get; private set; } // Value stolen from the opponent when the card is activated
-		public int CardsLeft { get; set; } // Number of the same type of card in the deck
+
+		public Utils.CardName Name { get; private set; }
+		public Utils.CardColor CardColor { get; private set; }
+		public List<int> NbsActivation { get; private set; }
+		public int CardCost { get; private set; }
+		public int ValReceive { get; private set; }
+		public int ValTaken { get; private set; }
+		public int CardsLeft { get; set; }
+
+		public Image CardImage { get; set; }
 
 		public Card(Utils.CardName cardName, int cardsLeft)
 		{
@@ -28,7 +32,7 @@ namespace Miniville {
 
 			this.CardsLeft = cardsLeft;
 		}
-		public Card (Utils.CardName name, Utils.CardColor cardColor, List<int> nbsActivation, int cardCost, int valReceive, int valTaken)
+		public Card(Utils.CardName name, Utils.CardColor cardColor, List<int> nbsActivation, int cardCost, int valReceive, int valTaken, Image cardImage)
 		{
 			this.Name = name;
 			this.CardColor = cardColor;
@@ -39,30 +43,32 @@ namespace Miniville {
 			this.ValReceive = valReceive;
 			this.ValTaken = valTaken;
 
+			this.CardImage = cardImage;
+
 		}
 
 		public void Effect(Player receiver, Player giver)
 		{
-			if (Utils.CardsNeeds.ContainsKey(this.Name)) //Check if the card needs an other one to be activated
-            {
-				foreach(Card c in receiver.Cards) //If so, searches in the player's deck for the card needed for activation
-                {
+			if (Utils.CardsNeeds.ContainsKey(this.Name))
+			{
+				foreach (Card c in receiver.Cards)
+				{
 					if (Utils.CardsNeeds[this.Name] == c.Name)
 					{
-						receiver.Money += this.ValReceive;
-						giver.Money -= this.ValTaken;
+						receiver.Money += this.ValReceive * this.CardsLeft;
+						giver.Money -= this.ValTaken * this.CardsLeft;
 						break;
 					}
-                }
-            }
-            else
+				}
+			}
+			else
 			{
-				receiver.Money += this.ValReceive;
-				giver.Money -= this.ValTaken;
+				receiver.Money += this.ValReceive * this.CardsLeft;
+				giver.Money -= this.ValTaken * this.CardsLeft;
 			}
 		}
 
-        public override bool Equals(object obj)
+		public override bool Equals(object obj)
 		{
 			//Check for null and compare run-time types.
 			if ((obj == null) || !this.GetType().Equals(obj.GetType()))
@@ -71,13 +77,9 @@ namespace Miniville {
 			}
 			else
 			{
-				Card c = (Card) obj;
+				Card c = (Card)obj;
 				return (this.Name == c.Name);
 			}
-		}
-		public override int GetHashCode()
-		{
-			return this.Name.GetHashCode();
 		}
 
 		public override string ToString()
@@ -89,7 +91,7 @@ namespace Miniville {
 			{
 				activations += $"ou { this.NbsActivation[act] } ";
 			}
-			return $"{this.Name} : {this.CardColor}  Vous recevez {this.ValReceive} pièces de {(this.ValTaken == 0 ? bank : adversary)} \n Cette carte s'active quand les dés tombent sur {activations} \n";
+			return $"{this.Name} : {this.CardColor}  Vous recevez {this.ValReceive} pièces de {(this.ValReceive == 0 ? adversary : bank)} \n Cette carte s'active quand les dés tombent sur {activations} \n";
 		}
-    }
+	}
 }
