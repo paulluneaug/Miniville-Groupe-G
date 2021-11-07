@@ -1,6 +1,6 @@
 Pour lancer le jeu : 
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-Lancez le raccourci "Miniville"
+Lancez le raccourci "Miniville" dans le dossier "Executable"
 
 
 Règles :
