@@ -32,7 +32,6 @@ namespace MiniVille
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.Dice = new System.Windows.Forms.Button();
             this.TextMessage = new System.Windows.Forms.Label();
-            this.Debugger = new System.Windows.Forms.Label();
             this.CoinsPlayer = new System.Windows.Forms.Label();
             this.CoinsIA = new System.Windows.Forms.Label();
             this.NameGiven = new System.Windows.Forms.TextBox();
@@ -167,15 +166,6 @@ namespace MiniVille
             this.TextMessage.Size = new System.Drawing.Size(50, 13);
             this.TextMessage.TabIndex = 2;
             this.TextMessage.Text = "Message";
-            // 
-            // Debugger
-            // 
-            this.Debugger.AutoSize = true;
-            this.Debugger.Location = new System.Drawing.Point(1063, 413);
-            this.Debugger.Name = "Debugger";
-            this.Debugger.Size = new System.Drawing.Size(54, 13);
-            this.Debugger.TabIndex = 6;
-            this.Debugger.Text = "Debugger";
             // 
             // CoinsPlayer
             // 
@@ -1188,7 +1178,6 @@ namespace MiniVille
             this.Controls.Add(this.CoinsPlayer);
             this.Controls.Add(this.PlayerCoinImage);
             this.Controls.Add(this.PictureDice2);
-            this.Controls.Add(this.Debugger);
             this.Controls.Add(this.Carte2);
             this.Controls.Add(this.Carte1);
             this.Controls.Add(this.PictureDice1);
@@ -1236,7 +1225,6 @@ namespace MiniVille
         private System.Windows.Forms.PictureBox PictureDice1;
         private System.Windows.Forms.PictureBox Carte1;
         private System.Windows.Forms.PictureBox Carte2;
-        private System.Windows.Forms.Label Debugger;
         private System.Windows.Forms.PictureBox PictureDice2;
         private System.Windows.Forms.PictureBox PlayerCoinImage;
         private System.Windows.Forms.Label CoinsPlayer;

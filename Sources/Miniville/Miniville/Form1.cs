@@ -59,7 +59,6 @@ namespace MiniVille
             InitializeComponent();
             TextMessage.Text = ""; //DiceText
             TextMessage.ForeColor = Color.White;
-            Debugger.ForeColor = Color.White;
             carteGrandePos = new Point((this.Width - carteGrandeTaille.Width) / 2,
                 (this.Height - carteGrandeTaille.Height) / 2);
 

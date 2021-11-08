@@ -269,7 +269,7 @@ namespace MiniVille
 
 					foreach (Card c in cardsAvailable)
 					{
-						int expertFact = (ExpertMode && !AI.Cards.Contains(c)) ? 10 : 1;
+						int expertFact = (ExpertMode && AI.Cards[AI.Cards.IndexOf(c)].CardsLeft==0) ? 10 : 1;
 
 						cardsWeights.Add((1 + 2 * c.ValReceive + 3 * c.ValTaken - c.CardCost) * expertFact);
 					}
